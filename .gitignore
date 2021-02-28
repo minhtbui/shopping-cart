@@ -5,6 +5,7 @@ node_modules
 node_modules/
 .pnp
 .pnp.js
+products_and_images
 
 # testing
 /coverage
