@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 
+// chakra UI
 import { StarIcon } from '@chakra-ui/icons';
 import {
     Alert,
