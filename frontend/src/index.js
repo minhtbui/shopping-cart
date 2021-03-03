@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider, CSSReset, extendTheme } from '@chakra-ui/react';
 
+// redux store
+import { Provider } from 'react-redux';
+import store from './store';
+
 const config = {
     initialColorMode: 'light',
     useSystemColorMode: false,
@@ -14,10 +18,12 @@ const theme = extendTheme({ config });
 
 ReactDOM.render(
     <React.StrictMode>
-        <ChakraProvider theme={theme}>
-            <CSSReset />
-            <App />
-        </ChakraProvider>
+        <Provider store={store}>
+            <ChakraProvider theme={theme}>
+                <CSSReset />
+                <App />
+            </ChakraProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root'),
 );

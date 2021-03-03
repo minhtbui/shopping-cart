@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const PORT = process.env.PORT || 5000;
 const colors = require('colors');
 const connectDB = require('./config/db');
 const routes = require('./routes/index');
@@ -21,6 +20,8 @@ app.use(express.json()); // res json data
 // routers
 routes(app);
 
+// listen to server
+const PORT = process.env.PORT || 5000;
 app.listen(
     PORT,
     console.log(`Listening on http://localhost:${PORT}`.yellow.bold),

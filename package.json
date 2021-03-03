@@ -16,6 +16,8 @@
   },
   "devDependencies": {},
   "scripts": {
+    "data:Import":"node backend/seeder",
+    "data:Destroy":"node backend/seeder -d",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",

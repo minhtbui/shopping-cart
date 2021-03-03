@@ -7,22 +7,31 @@ const Review = mongoose.Schema(
         comment: { type: String, required: true },
     },
     {
-        timestamp: true,
+        timestamps: true,
     },
 );
 
-const Product = mongoose.Schema({
-    user: { tyoe: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
-    name: { type: String, required: true },
-    image: { type: String, required: true },
-    brand: { type: String, required: true },
-    category: { type: String, required: true },
-    description: { type: String, required: true },
-    rating: { type: Number, required: true, default: 0 },
-    numReviews: { type: Number, required: true, default: 0 },
-    price: { type: Number, required: true, default: 0 },
-    countInStock: { type: Number, required: true, default: 0 },
-    review: { Review },
-});
+const Product = mongoose.Schema(
+    {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
+        },
+        name: { type: String, required: true },
+        image: { type: String, required: true },
+        brand: { type: String, required: true },
+        category: { type: String, required: true },
+        description: { type: String, required: true },
+        rating: { type: Number, required: true, default: 0 },
+        numReviews: { type: Number, required: true, default: 0 },
+        price: { type: Number, required: true, default: 0 },
+        countInStock: { type: Number, required: true, default: 0 },
+        review: { Review },
+    },
+    {
+        timestamps: true,
+    },
+);
 
 module.exports = mongoose.model('Product', Product);

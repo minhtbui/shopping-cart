@@ -1,29 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Product from '../components/Product';
-import axios from 'axios';
+
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { listProducts } from '../actions/productAction';
 
 // chakra UI
-import { Heading, SimpleGrid } from '@chakra-ui/react';
+import {
+    Alert,
+    AlertIcon,
+    Heading,
+    SimpleGrid,
+    Spinner,
+} from '@chakra-ui/react';
 
 const Home = () => {
-    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+    const { error, loading, products } = useSelector(
+        (state) => state.productList,
+    );
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            const { data } = await axios.get('/api/products');
-            setProducts(data);
-        };
-        fetchProducts();
-    }, []);
+        dispatch(listProducts());
+    }, [dispatch]);
 
     return (
         <>
             <Heading as='h2'>New Products</Heading>
-            <SimpleGrid minChildWidth='200px' gap='8' py='10'>
-                {products.map((product) => (
-                    <Product key={product._id} product={product} />
-                ))}
-            </SimpleGrid>
+            {loading ? (
+                <Spinner
+                    thickness='4px'
+                    speed='0.5s'
+                    emptyColor='gray.200'
+                    color='black'
+                    size='xl'
+                    d='block'
+                    mt='20%'
+                    mx='auto'
+                />
+            ) : error ? (
+                <Alert status='error'>
+                    <AlertIcon />
+                    {error}
+                </Alert>
+            ) : (
+                <SimpleGrid minChildWidth='200px' gap='8' py='10'>
+                    {products?.map((product) => (
+                        <Product key={product._id} product={product} />
+                    ))}
+                </SimpleGrid>
+            )}
         </>
     );
 };
