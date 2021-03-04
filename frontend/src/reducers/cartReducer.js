@@ -7,27 +7,33 @@ import {
 export const cartReducer = (state = { cartItems: [] }, action) => {
     switch (action.type) {
         case CART_ADD_ITEM:
-            const item = action.payload;
+            const addedItem = action.payload;
             const existedItem = state.cartItems.find(
-                (cartItem) => cartItem._id === item._id,
+                (item) => item._id === addedItem._id,
             );
 
             if (existedItem) {
-                existedItem.qty += item.qty;
+                existedItem.qty += addedItem.qty;
                 return {
                     ...state,
                 };
             } else {
                 return {
                     ...state,
-                    cartItems: [...state.cartItems, item],
+                    cartItems: [...state.cartItems, addedItem],
                 };
             }
         case CART_UPDATE_ITEM:
-            const updateItem = state.cartItems.find(
-                (cartItem) => cartItem._id === item._id,
+            const cartItem = action.payload;
+            const updatedItem = state.cartItems.find(
+                (item) => item._id === cartItem._id,
             );
-            return {};
+            if (updatedItem) {
+                updatedItem.qty = cartItem.qty;
+            }
+            return {
+                ...state,
+            };
         default:
             return state;
     }
