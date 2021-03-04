@@ -10,26 +10,48 @@ import {
     Flex,
     Grid,
     Heading,
+    HStack,
     Image,
+    Input,
     Spacer,
     Spinner,
     Text,
+    useNumberInput,
 } from '@chakra-ui/react';
 import { MdAddShoppingCart } from 'react-icons/md';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { detailProduct } from '../actions/productAction';
+import { addItem } from '../actions/cartAction';
 
 const ProductDetail = ({ match }) => {
     const dispatch = useDispatch();
     const { error, loading, product } = useSelector(
         (state) => state.productDetail,
     );
+
+    const {
+        getInputProps,
+        getIncrementButtonProps,
+        getDecrementButtonProps,
+    } = useNumberInput({
+        step: 1,
+        defaultValue: 1,
+        min: 1,
+        max: product.countInStock,
+    });
+    const inc = getIncrementButtonProps();
+    const dec = getDecrementButtonProps();
+    const qty = getInputProps();
+
     useEffect(() => {
         dispatch(detailProduct(match.params.id));
     }, [dispatch, match]);
 
+    const addCartHandler = (e) => {
+        dispatch(addItem(product, parseInt(qty.value)));
+    };
     return (
         <>
             {loading ? (
@@ -57,29 +79,74 @@ const ProductDetail = ({ match }) => {
                             <Text as='p' fontSize='xl'>
                                 {product.description}
                             </Text>
-
-                            <Box>
-                                {Array(5)
-                                    .fill('')
-                                    .map((_, i) => (
-                                        <StarIcon
-                                            key={i}
-                                            fontSize='3xl'
-                                            color={
-                                                i < product.rating
-                                                    ? 'teal.500'
-                                                    : 'gray.300'
-                                            }
-                                        />
-                                    ))}
-                            </Box>
-
                             <Flex alignItems='center' h='fit-content'>
+                                <Box>
+                                    {Array(5)
+                                        .fill('')
+                                        .map((_, i) => (
+                                            <StarIcon
+                                                key={i}
+                                                fontSize='3xl'
+                                                color={
+                                                    i < product.rating
+                                                        ? 'teal.500'
+                                                        : 'gray.300'
+                                                }
+                                            />
+                                        ))}
+                                </Box>
+                                <Spacer flex='.5' />
                                 <Text as='strong' fontSize='3xl'>
                                     {product.price} $
                                 </Text>
-                                <Spacer flex='.6' />
-                                <Button w='30%' bgColor='teal.300'>
+                            </Flex>
+
+                            <Flex alignItems='baseline' h='fit-content'>
+                                {!product.countInStock ? (
+                                    <Text
+                                        fontSize='md'
+                                        fontWeight='700'
+                                        color='red.500'>
+                                        Out Of Stock
+                                    </Text>
+                                ) : (
+                                    <Box>
+                                        <HStack maxW='200px'>
+                                            <Button
+                                                variant='outline'
+                                                colorScheme='teal'
+                                                fontSize='30px'
+                                                {...dec}>
+                                                -
+                                            </Button>
+                                            <Input
+                                                textAlign='center'
+                                                p='0'
+                                                {...qty}
+                                            />
+                                            <Button
+                                                variant='outline'
+                                                colorScheme='teal'
+                                                fontSize='30px'
+                                                {...inc}>
+                                                +
+                                            </Button>
+                                        </HStack>
+                                        <Text
+                                            textAlign='center'
+                                            fontSize='sm'
+                                            color='gray.500'
+                                            mt='2'>
+                                            In Stock: {product.countInStock}
+                                        </Text>
+                                    </Box>
+                                )}
+
+                                <Spacer flex='.5' />
+                                <Button
+                                    w='30%'
+                                    bgColor='teal.300'
+                                    onClick={addCartHandler}>
                                     <MdAddShoppingCart
                                         size='25'
                                         color='black'

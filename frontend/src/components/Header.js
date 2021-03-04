@@ -31,7 +31,7 @@ const Header = () => {
                 <Spacer />
 
                 <NavLink to='/cart'>
-                    <GrCart fontSize='35' color='black' />
+                    <GrCart fontSize='25' color='black' />
                 </NavLink>
 
                 <Menu>
