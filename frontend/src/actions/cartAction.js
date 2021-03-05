@@ -20,11 +20,11 @@ export const addItem = (product, qty) => async (dispatch, getState) => {
     saveLocalStorage(getState);
 };
 
-export const updateItem = (id, qty) => (dispatch, getState) => {
+export const updateItem = (_id, qty) => (dispatch, getState) => {
     dispatch({
         type: CART_UPDATE_ITEM,
         payload: {
-            _id: id,
+            _id,
             qty,
         },
     });
@@ -32,11 +32,11 @@ export const updateItem = (id, qty) => (dispatch, getState) => {
     saveLocalStorage(getState);
 };
 
-export const removeItem = (id) => (dispatch, getState) => {
+export const removeItem = (_id) => (dispatch, getState) => {
     dispatch({
         type: CART_REMOVE_ITEM,
         payload: {
-            _id: id,
+            _id,
         },
     });
 

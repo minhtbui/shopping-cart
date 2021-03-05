@@ -34,7 +34,6 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
             return {
                 ...state,
             };
-
         case CART_REMOVE_ITEM:
             const deleteItem = state.cartItems.find(
                 (item) => item._id === action.payload._id,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import { Box, Button, Grid, Heading, List, Text } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -7,8 +8,12 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 const Cart = () => {
+    const history = useHistory();
     const { cartItems } = useSelector((state) => state.cart);
 
+    const checkOutHandler = () => {
+        history.push('/login?payment');
+    };
     return (
         <>
             <Grid templateColumns='.7fr .3fr'>
@@ -46,7 +51,8 @@ const Cart = () => {
                         leftIcon={<FaShoppingCart />}
                         colorScheme='green'
                         variant='solid'
-                        mt={3}>
+                        mt={3}
+                        onClick={checkOutHandler}>
                         Checkout
                     </Button>
                 </Box>

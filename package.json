@@ -10,11 +10,11 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.18",
     "nodemon": "^2.0.7",
     "react-router-dom": "^5.2.0"
   },
-  "devDependencies": {},
   "scripts": {
     "data:Import": "node backend/seeder",
     "data:Destroy": "node backend/seeder -d",

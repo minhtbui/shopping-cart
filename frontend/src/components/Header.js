@@ -26,7 +26,7 @@ const Header = () => {
                 bgColor='transparent'
                 borderBottom='1px solid gray'>
                 <NavLink to='/'>
-                    <Heading color='black'>Logo</Heading>
+                    <Heading color='black'>Seeking Knowledge</Heading>
                 </NavLink>
                 <Spacer />
 

@@ -7,6 +7,7 @@ const routes = require('./routes/index');
 
 // config
 dotenv.config();
+
 // connect database
 connectDB();
 
@@ -14,8 +15,10 @@ app.use(
     express.urlencoded({
         extended: true,
     }),
-); // req html form data
-app.use(express.json()); // res json data
+);
+
+// post req data
+app.use(express.json());
 
 // routers
 routes(app);
