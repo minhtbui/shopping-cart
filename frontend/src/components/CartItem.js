@@ -3,21 +3,23 @@ import {
     Button,
     Grid,
     HStack,
+    IconButton,
     Image,
     NumberInput,
     NumberInputField,
     Text,
 } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { updateItem } from '../actions/cartAction';
+import { removeItem, updateItem } from '../actions/cartAction';
 
 const CartItem = ({ item }) => {
     const dispatch = useDispatch();
     const [qty, setQty] = useState(item.qty);
 
-    const onClickChangeHandler = (type) => {
+    const onClickChangeQtyHandler = (type) => {
         if (type === 'inc') {
             dispatch(updateItem(item._id, item.qty + 1));
             setQty(item.qty + 1);
@@ -26,7 +28,8 @@ const CartItem = ({ item }) => {
             setQty(item.qty - 1);
         }
     };
-    const onChangeHandler = (e) => {
+
+    const onChangeQtyHandler = (e) => {
         const input = parseInt(e.target.value);
         if (1 <= input && input <= item.countInStock) {
             console.log('run');
@@ -37,9 +40,13 @@ const CartItem = ({ item }) => {
             setQty(1);
         }
     };
+
+    const removeItemHandler = (e) => {
+        dispatch(removeItem(item._id));
+    };
     return (
         <Grid
-            templateColumns='fit-content(50%) 40% 20% 10%'
+            templateColumns='fit-content(50%) 45% 10% 140px fit-content(100%)'
             gap={10}
             alignItems='center'>
             <Image
@@ -52,12 +59,15 @@ const CartItem = ({ item }) => {
             <Text as='h4' fontSize='xl' fontWeight='500'>
                 {item.name}
             </Text>
+            <Text fontSize='lg' fontWeight='700'>
+                ${item.price}
+            </Text>
             <HStack maxW='200px'>
                 <Button
-                    variant='outline'
+                    variant='none'
                     colorScheme='teal'
                     fontSize='30px'
-                    onClick={() => onClickChangeHandler('dec')}
+                    onClick={() => onClickChangeQtyHandler('dec')}
                     isDisabled={qty <= 1 && true}>
                     -
                 </Button>
@@ -65,21 +75,23 @@ const CartItem = ({ item }) => {
                     <NumberInputField
                         p='0'
                         textAlign='center'
-                        onChange={onChangeHandler}
+                        onChange={onChangeQtyHandler}
                     />
                 </NumberInput>
                 <Button
-                    variant='outline'
+                    variant='none'
                     colorScheme='teal'
                     fontSize='30px'
-                    onClick={() => onClickChangeHandler('inc')}
+                    onClick={() => onClickChangeQtyHandler('inc')}
                     isDisabled={qty >= item.countInStock && true}>
                     +
                 </Button>
             </HStack>
-            <Text fontSize='lg' fontWeight='700'>
-                ${item.price}
-            </Text>
+            <IconButton
+                icon={<DeleteIcon />}
+                isRound
+                onClick={removeItemHandler}
+            />
         </Grid>
     );
 };

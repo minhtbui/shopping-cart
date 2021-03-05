@@ -1,6 +1,7 @@
 import React from 'react';
 import CartItem from '../components/CartItem';
-import { Box, Grid, Heading, List, Text } from '@chakra-ui/react';
+import { Box, Button, Grid, Heading, List, Text } from '@chakra-ui/react';
+import { FaShoppingCart } from 'react-icons/fa';
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -41,6 +42,13 @@ const Cart = () => {
                             )
                             .toFixed(2) || 0}
                     </Text>
+                    <Button
+                        leftIcon={<FaShoppingCart />}
+                        colorScheme='green'
+                        variant='solid'
+                        mt={3}>
+                        Checkout
+                    </Button>
                 </Box>
             </Grid>
         </>

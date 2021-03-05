@@ -101,15 +101,15 @@ const ProductDetail = ({ match }) => {
                                 </Text>
                             </Flex>
 
-                            <Flex alignItems='baseline' h='fit-content'>
-                                {!product.countInStock ? (
-                                    <Text
-                                        fontSize='md'
-                                        fontWeight='700'
-                                        color='red.500'>
-                                        Out Of Stock
-                                    </Text>
-                                ) : (
+                            {!product.countInStock ? (
+                                <Text
+                                    fontSize='md'
+                                    fontWeight='700'
+                                    color='red.500'>
+                                    Out Of Stock
+                                </Text>
+                            ) : (
+                                <Flex alignItems='baseline' h='fit-content'>
                                     <Box>
                                         <HStack maxW='200px'>
                                             <Button
@@ -140,19 +140,19 @@ const ProductDetail = ({ match }) => {
                                             In Stock: {product.countInStock}
                                         </Text>
                                     </Box>
-                                )}
 
-                                <Spacer flex='.5' />
-                                <Button
-                                    w='30%'
-                                    bgColor='teal.300'
-                                    onClick={addCartHandler}>
-                                    <MdAddShoppingCart
-                                        size='25'
-                                        color='black'
-                                    />
-                                </Button>
-                            </Flex>
+                                    <Spacer flex='.5' />
+                                    <Button
+                                        w='30%'
+                                        bgColor='teal.300'
+                                        onClick={addCartHandler}>
+                                        <MdAddShoppingCart
+                                            size='25'
+                                            color='black'
+                                        />
+                                    </Button>
+                                </Flex>
+                            )}
                         </Box>
                     </Grid>
                 )

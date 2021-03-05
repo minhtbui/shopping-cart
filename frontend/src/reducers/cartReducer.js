@@ -34,6 +34,24 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
             return {
                 ...state,
             };
+
+        case CART_REMOVE_ITEM:
+            const deleteItem = state.cartItems.find(
+                (item) => item._id === action.payload._id,
+            );
+
+            if (deleteItem) {
+                const indexItem = state.cartItems.indexOf(deleteItem);
+                state.cartItems.splice(indexItem, 1);
+                return {
+                    ...state,
+                };
+            } else {
+                return {
+                    ...state,
+                };
+            }
+
         default:
             return state;
     }

@@ -17,12 +17,14 @@ const config = {
 const theme = extendTheme({ config });
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ChakraProvider theme={theme}>
-            <CSSReset />
-            <App />
-        </ChakraProvider>
-    </Provider>,
+    <React.StrictMode>
+        <Provider store={store}>
+            <ChakraProvider theme={theme}>
+                <CSSReset />
+                <App />
+            </ChakraProvider>
+        </Provider>
+    </React.StrictMode>,
     document.getElementById('root'),
 );
 
