@@ -18,4 +18,16 @@ User.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// Middleware
+User.pre('save', async function () {
+    // executed one after another
+    if (!this.isModified('password')) {
+        // if the pw is generated
+        return next();
+    }
+
+    const salt = await bcrypt.genSalt(10); // generate pw
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
 module.exports = mongoose.model('User', User);

@@ -12,9 +12,7 @@ module.exports = asyncHandler(async (req, res, next) => {
             token = req.headers.authorization.split(' ')[1];
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-            req.user = await await User.findById(decodedToken.id).select(
-                '-password',
-            );
+            req.user = await User.findById(decodedToken.id).select('-password');
 
             next();
         } catch (err) {

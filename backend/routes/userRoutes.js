@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const { authUser, getUserProfile } = require('../controllers/userController');
+const {
+    authUser,
+    getUserProfile,
+    registerUser,
+} = require('../controllers/userController');
 const protectUser = require('../middlewares/authMiddleware');
+
+/*
+ * Users Register
+ * [POST] api/users/
+ * Private
+ */
+router.route('/').post(registerUser);
+
 /*
  * Users Login
  * [POST] api/users/login

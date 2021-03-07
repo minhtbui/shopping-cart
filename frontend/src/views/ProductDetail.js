@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Loader from '../components/Loader';
 
 // chakra UI
 import { StarIcon } from '@chakra-ui/icons';
@@ -14,7 +15,6 @@ import {
     Image,
     Input,
     Spacer,
-    Spinner,
     Text,
     useNumberInput,
 } from '@chakra-ui/react';
@@ -55,16 +55,7 @@ const ProductDetail = ({ match }) => {
     return (
         <>
             {loading ? (
-                <Spinner
-                    thickness='4px'
-                    speed='0.5s'
-                    emptyColor='gray.200'
-                    color='black'
-                    size='xl'
-                    d='block'
-                    mt='20%'
-                    mx='auto'
-                />
+                <Loader />
             ) : error ? (
                 <Alert status='error'>
                     <AlertIcon />

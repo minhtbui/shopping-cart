@@ -3,18 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ChakraProvider, CSSReset, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
+import theme from './theme';
 
 // redux store
 import { Provider } from 'react-redux';
 import store from './store';
-
-const config = {
-    initialColorMode: 'light',
-    useSystemColorMode: false,
-};
-
-const theme = extendTheme({ config });
 
 ReactDOM.render(
     <React.StrictMode>

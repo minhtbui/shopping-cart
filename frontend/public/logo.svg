@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="226" height="133.66" viewBox="0 0 226 133.66">
+  <g id="Group_6" data-name="Group 6" transform="translate(-56.866 -80.921)">
+    <g id="Group_2" data-name="Group 2" transform="translate(0 -5.058)">
+      <g id="Group_1" data-name="Group 1" transform="translate(57.866 168.077)">
+        <text id="Wisdom_Seeker" data-name="Wisdom Seeker" transform="translate(112 32)" fill="#26272c" font-size="29.216" font-family="SegoeUI, Segoe UI" letter-spacing="0.04em"><tspan x="-107.156" y="0">Wisdom Seeker</tspan></text>
+      </g>
+    </g>
+    <g id="Group_5" data-name="Group 5" transform="translate(0 13.968)">
+      <g id="Group_3" data-name="Group 3" transform="translate(176.81 67.021)">
+        <path id="Path_1" data-name="Path 1" d="M263.24,156.2l-2,0,.078-75.982L179.47,104.678V156.2h-2V103.476l85.852-25.657Z" transform="translate(-176.81 -67.021)" fill="#26272c"/>
+        <rect id="Rectangle_1" data-name="Rectangle 1" width="83.985" height="1" transform="translate(0.33 31.703) rotate(-17)" fill="#26272c"/>
+        <rect id="Rectangle_2" data-name="Rectangle 2" width="74.526" height="1" transform="translate(0.543 25.123) rotate(-17)" fill="#26272c"/>
+        <rect id="Rectangle_3" data-name="Rectangle 3" width="63.43" height="1" transform="translate(0.758 18.643) rotate(-17)" fill="#26272c"/>
+      </g>
+      <g id="Group_4" data-name="Group 4" transform="translate(75.657 67.018)">
+        <path id="Path_2" data-name="Path 2" d="M75.738,156.2l-.082-78.382,85.852,25.657V156.2h-2V104.678L77.66,80.217l.079,75.982Z" transform="translate(-75.657 -67.018)" fill="#26272c"/>
+        <rect id="Rectangle_4" data-name="Rectangle 4" width="1" height="83.985" transform="translate(4.63 8.106) rotate(-73)" fill="#26272c"/>
+        <rect id="Rectangle_5" data-name="Rectangle 5" width="1" height="74.526" transform="translate(13.37 4.217) rotate(-73)" fill="#26272c"/>
+        <rect id="Rectangle_6" data-name="Rectangle 6" width="1" height="63.43" transform="translate(23.681 0.892) rotate(-73)" fill="#26272c"/>
+      </g>
+      <path id="Path_3" data-name="Path 3" d="M174.021,155.406h-2v-45.28h-5.235v45.28h-2v-46.8h9.235Z" transform="translate(0 0.794)" fill="#26272c"/>
+    </g>
+  </g>
+</svg>

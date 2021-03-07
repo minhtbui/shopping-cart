@@ -12,7 +12,7 @@ const Cart = () => {
     const { cartItems } = useSelector((state) => state.cart);
 
     const checkOutHandler = () => {
-        history.push('/login?payment');
+        history.push('/login?redirect=payment');
     };
     return (
         <>

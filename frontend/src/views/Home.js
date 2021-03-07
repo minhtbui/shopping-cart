@@ -6,13 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productAction';
 
 // chakra UI
-import {
-    Alert,
-    AlertIcon,
-    Heading,
-    SimpleGrid,
-    Spinner,
-} from '@chakra-ui/react';
+import { Alert, AlertIcon, Heading, SimpleGrid } from '@chakra-ui/react';
+import Loader from '../components/Loader';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -28,16 +23,7 @@ const Home = () => {
         <>
             <Heading as='h2'>New Products</Heading>
             {loading ? (
-                <Spinner
-                    thickness='4px'
-                    speed='0.5s'
-                    emptyColor='gray.200'
-                    color='black'
-                    size='xl'
-                    d='block'
-                    mt='20%'
-                    mx='auto'
-                />
+                <Loader />
             ) : error ? (
                 <Alert status='error'>
                     <AlertIcon />
