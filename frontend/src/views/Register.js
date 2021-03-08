@@ -35,7 +35,7 @@ const Register = ({ location, history }) => {
     const redirect = location.search ? location.search.split('=')[1] : '/';
 
     const { loading, error, userInfo } = useSelector(
-        (state) => state.userRegister,
+        (state) => state.userLogin,
     );
 
     useEffect(() => {

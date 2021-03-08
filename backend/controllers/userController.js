@@ -69,4 +69,14 @@ const getUserProfile = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { authUser, getUserProfile, registerUser };
+//! [PUT] /api/users/profile
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const user = await User.findOne(req.user._id);
+
+    if (user) {
+    } else {
+        res.status(404);
+        throw new Error('User is not found');
+    }
+});
+module.exports = { authUser, getUserProfile, registerUser, updateUserProfile };

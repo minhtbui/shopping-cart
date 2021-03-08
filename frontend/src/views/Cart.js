@@ -20,9 +20,10 @@ const Cart = () => {
                 <List spacing={5}>
                     <Heading>Shopping Cart</Heading>
 
-                    {cartItems.map((item) => (
-                        <CartItem key={item._id} item={item} />
-                    ))}
+                    {cartItems &&
+                        cartItems.map((item) => (
+                            <CartItem key={item._id} item={item} />
+                        ))}
                 </List>
                 <Box
                     d='flex'
@@ -34,14 +35,14 @@ const Cart = () => {
                     rounded='md'>
                     <Heading as='h3' fontSize='2xl'>
                         Subtotal (
-                        {cartItems.reduce((acc, item) => acc + item.qty, 0) ||
+                        {cartItems?.reduce((acc, item) => acc + item.qty, 0) ||
                             0}
                         ) Items
                     </Heading>
                     <Text fontSize='3xl' mt='auto'>
                         Total: $
                         {cartItems
-                            .reduce(
+                            ?.reduce(
                                 (acc, item) => acc + item.qty * item.price,
                                 0,
                             )

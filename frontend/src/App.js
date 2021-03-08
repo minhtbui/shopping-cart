@@ -6,6 +6,7 @@ import Cart from './views/Cart';
 import Login from './views/Login';
 import Register from './views/Register';
 import ProductDetail from './views/ProductDetail';
+import UserProfile from './views/UserProfile';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // chakra UI
@@ -23,6 +24,11 @@ const App = () => {
                             <Route path='/login' component={Login} />
                             <Route path='/register' component={Register} />
                             <Route path='/cart' component={Cart} />
+
+                            <Route
+                                path='/:user/profile'
+                                component={UserProfile}
+                            />
                             <Route
                                 path='/product/:id'
                                 component={ProductDetail}

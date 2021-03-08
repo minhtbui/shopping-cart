@@ -3,7 +3,7 @@ const toastConfig = (title, message) => {
         title: title,
         description: message,
         status: 'success',
-        duration: 7000,
+        duration: 5000,
         isClosable: true,
     };
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Image, Link, MenuDivider } from '@chakra-ui/react';
+import { Avatar, IconButton, Image, Link, MenuDivider } from '@chakra-ui/react';
 
 // chakra UI
 import {
@@ -11,9 +11,7 @@ import {
     MenuList,
     Spacer,
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import { GrCart } from 'react-icons/gr';
-import { AiOutlineLogin } from 'react-icons/ai';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,20 +43,36 @@ const Header = () => {
 
                 {!userInfo ? (
                     <Link as={NavLink} to='/login' ml={5}>
-                        <AiOutlineLogin fontSize='30' color='black' />
+                        <Avatar
+                            size='sm'
+                            bg='black'
+                            src='https://bit.ly/broken-link'
+                        />{' '}
                     </Link>
                 ) : (
                     <Menu>
                         <MenuButton
+                            as={IconButton}
                             fontSize='xl'
-                            variant='outline'
-                            color='black'
-                            borderColor='gray.500'
-                            ml='8'>
-                            Welcome, {userInfo.name}! <ChevronDownIcon />
-                        </MenuButton>
+                            variant='none'
+                            ml='4'
+                            icon={
+                                <Avatar
+                                    size='sm'
+                                    bg='teal.500'
+                                    name={userInfo.name}
+                                    src={userInfo?.avartar}
+                                />
+                            }
+                        />
+
                         <MenuList>
-                            <MenuItem>Profile</MenuItem>
+                            <Link
+                                as={NavLink}
+                                to={`${userInfo.name.toLowerCase()}/profile`}>
+                                <MenuItem>Profile</MenuItem>
+                            </Link>
+
                             <MenuItem>Order</MenuItem>
                             <MenuDivider />
                             <MenuItem onClick={logoutHandler}>Logout</MenuItem>

@@ -12,6 +12,11 @@ const theme = extendTheme({
             body: {
                 fontFamily: 'Roboto, sans-serif',
             },
+            a: {
+                _hover: {
+                    textDecoration: 'none !important',
+                },
+            },
         },
     },
 });

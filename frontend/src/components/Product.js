@@ -14,7 +14,11 @@ import { StarIcon } from '@chakra-ui/icons';
 
 const Product = ({ product }) => {
     return (
-        <Box>
+        <Box
+            bg='#e9e8e6'
+            p='10px'
+            borderRadius='20px'
+            boxShadow='2px 2px 10px #e9e8e6'>
             <Link to={`/product/${product._id}`}>
                 <Image src={product.image} alt={product.name} />
             </Link>
