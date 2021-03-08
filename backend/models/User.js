@@ -19,7 +19,7 @@ User.methods.matchPassword = async function (enteredPassword) {
 };
 
 // Middleware
-User.pre('save', async function () {
+User.pre('save', async function (next) {
     // executed one after another
     if (!this.isModified('password')) {
         // if the pw is generated

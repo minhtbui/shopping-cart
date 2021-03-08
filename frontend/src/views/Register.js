@@ -34,9 +34,7 @@ const Register = ({ location, history }) => {
 
     const redirect = location.search ? location.search.split('=')[1] : '/';
 
-    const { loading, error, userInfo } = useSelector(
-        (state) => state.userLogin,
-    );
+    const { loading, error, userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
         if (userInfo) {
@@ -46,7 +44,7 @@ const Register = ({ location, history }) => {
 
     const formOnSubmitHandler = ({ name, email, password, cfPassword }) => {
         if (password !== cfPassword) {
-            setValidate({ error: true, message: 'Passwords do not match' });
+            setValidate({ error: true, message: 'Passwords do not match!!!' });
         } else {
             dispatch(registerAction(name, email, password));
             setValidate({

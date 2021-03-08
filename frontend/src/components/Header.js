@@ -19,7 +19,7 @@ import { logout } from '../actions/userAction';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const { userInfo } = useSelector((state) => state.userLogin);
+    const { userInfo } = useSelector((state) => state.user);
 
     const logoutHandler = () => {
         dispatch(logout());
@@ -67,9 +67,7 @@ const Header = () => {
                         />
 
                         <MenuList>
-                            <Link
-                                as={NavLink}
-                                to={`${userInfo.name.toLowerCase()}/profile`}>
+                            <Link as={NavLink} to='/profile'>
                                 <MenuItem>Profile</MenuItem>
                             </Link>
 

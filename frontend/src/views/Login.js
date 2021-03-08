@@ -30,9 +30,7 @@ const Login = ({ location, history }) => {
 
     const redirect = location.search ? location.search.split('=')[1] : '/';
 
-    const { loading, error, userInfo } = useSelector(
-        (state) => state.userLogin,
-    );
+    const { loading, error, userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
         if (userInfo) {
@@ -44,7 +42,7 @@ const Login = ({ location, history }) => {
                 ),
             );
         }
-    }, [history, userInfo, redirect]);
+    }, [history, userInfo, redirect, toast]);
 
     const formOnSubmitHandler = ({ email, password }) => {
         dispatch(login(email, password));
