@@ -1,7 +1,16 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-import { Box, Button, Grid, Heading, List, Text } from '@chakra-ui/react';
+import {
+    Alert,
+    AlertIcon,
+    Box,
+    Button,
+    Grid,
+    Heading,
+    List,
+    Text,
+} from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
 
 // Redux
@@ -16,14 +25,20 @@ const Cart = () => {
     };
     return (
         <>
-            <Grid templateColumns='.7fr .3fr'>
+            <Grid templateColumns='.7fr .3fr' gap={10}>
                 <List spacing={5}>
                     <Heading>Shopping Cart</Heading>
 
-                    {cartItems &&
+                    {cartItems.length > 0 ? (
                         cartItems.map((item) => (
                             <CartItem key={item._id} item={item} />
-                        ))}
+                        ))
+                    ) : (
+                        <Alert status='info' fontWeight='700'>
+                            <AlertIcon />
+                            The cart is empty! Let's go shopping!!!
+                        </Alert>
+                    )}
                 </List>
                 <Box
                     d='flex'

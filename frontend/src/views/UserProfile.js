@@ -2,13 +2,20 @@ import {
     Alert,
     AlertIcon,
     Button,
+    Divider,
     FormControl,
     FormErrorMessage,
     FormLabel,
     Grid,
     Input,
     InputRightElement,
+    Table,
+    Tbody,
+    Td,
     Text,
+    Th,
+    Thead,
+    Tr,
     useToast,
     VStack,
 } from '@chakra-ui/react';
@@ -51,12 +58,9 @@ const UserProfile = ({ history }) => {
         }
     };
     return userInfo ? (
-        <Grid templateColumns='30% 70%'>
+        <Grid templateColumns='.3fr fit-content(100%)  .7fr' gap={10}>
             <VStack
                 as='form'
-                bg='gray.200'
-                boxShadow='2px 2px 10px #f3f3f3'
-                borderRadius='20px'
                 p='10px'
                 spacing={6}
                 onSubmit={handleSubmit(formOnSubmitHandler)}>
@@ -131,6 +135,33 @@ const UserProfile = ({ history }) => {
                     isLoading={loading && 'true'}>
                     Update
                 </Button>
+            </VStack>
+
+            <Divider orientation='vertical' w='1px' />
+
+            <VStack spacing={6}>
+                <Text as='h2' fontWeight='500' fontSize='5xl'>
+                    Orders
+                </Text>
+
+                <Table variant='simple'>
+                    <Thead>
+                        <Tr>
+                            <Th>No. Order</Th>
+                            <Th>Items</Th>
+                            <Th isNumeric>Date/ Time</Th>
+                            <Th>Price</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        <Tr>
+                            <Td>#1</Td>
+                            <Td>millimetres (mm)</Td>
+                            <Td isNumeric>20/03/21</Td>
+                            <Td>$300</Td>
+                        </Tr>
+                    </Tbody>
+                </Table>
             </VStack>
         </Grid>
     ) : (

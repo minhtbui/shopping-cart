@@ -35,17 +35,17 @@ const Login = ({ location, history }) => {
     useEffect(() => {
         if (userInfo) {
             history.push(redirect);
-            toast(
-                toastConfig(
-                    'Login Success.',
-                    `Welcome ${userInfo.name}! Have a nice day.`,
-                ),
-            );
         }
-    }, [history, userInfo, redirect, toast]);
+    }, [history, userInfo, redirect]);
 
     const formOnSubmitHandler = ({ email, password }) => {
         dispatch(login(email, password));
+        toast(
+            toastConfig(
+                'Login Success.',
+                'Welcome to the Wisdom World ! Have a nice day.',
+            ),
+        );
     };
     return (
         <>
