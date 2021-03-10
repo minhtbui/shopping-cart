@@ -40,12 +40,14 @@ const Login = ({ location, history }) => {
 
     const formOnSubmitHandler = ({ email, password }) => {
         dispatch(login(email, password));
-        toast(
-            toastConfig(
-                'Login Success.',
-                'Welcome to the Wisdom World ! Have a nice day.',
-            ),
-        );
+        if (userInfo) {
+            toast(
+                toastConfig(
+                    'Login Success.',
+                    'Welcome to the Wisdom World ! Have a nice day.',
+                ),
+            );
+        }
     };
     return (
         <>

@@ -16,18 +16,18 @@ import { FaShoppingCart } from 'react-icons/fa';
 // Redux
 import { useSelector } from 'react-redux';
 
-const Cart = () => {
+const Payment = () => {
     const history = useHistory();
     const { cartItems } = useSelector((state) => state.cart);
 
     const checkOutHandler = () => {
-        history.push('/login?redirect=billinginfo');
+        history.push('/login?redirect=payment');
     };
     return (
         <>
             <Grid templateColumns='.7fr .3fr' gap={10}>
                 <List spacing={5}>
-                    <Heading>Shopping Cart</Heading>
+                    <Heading>Payment</Heading>
 
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
@@ -77,4 +77,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default Payment;

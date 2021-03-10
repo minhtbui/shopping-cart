@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './views/Home';
 import Cart from './views/Cart';
+import Payment from './views/Payment';
+import BillingInfo from './views/BillingInfo';
 import Login from './views/Login';
 import Register from './views/Register';
 import ProductDetail from './views/ProductDetail';
@@ -25,6 +27,11 @@ const App = () => {
                             <Route path='/register' component={Register} />
                             <Route path='/profile' component={UserProfile} />
                             <Route path='/cart' component={Cart} />
+                            <Route path='/payment' component={Payment} />
+                            <Route
+                                path='/billinginfo'
+                                component={BillingInfo}
+                            />
 
                             <Route
                                 path='/product/:id'

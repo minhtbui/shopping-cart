@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
     Button,
+    Divider,
     Grid,
     HStack,
     IconButton,
@@ -10,12 +11,13 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
+import { TiEquals, TiTimes } from 'react-icons/ti';
 
 // redux
 import { useDispatch } from 'react-redux';
 import { removeItem, updateItem } from '../actions/cartAction';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, orderedItem }) => {
     const dispatch = useDispatch();
     const [qty, setQty] = useState(item.qty);
 
@@ -46,11 +48,11 @@ const CartItem = ({ item }) => {
     };
     return (
         <Grid
-            templateColumns='fit-content(50%) 45% 10% 140px fit-content(100%)'
+            templateColumns='fit-content(50%) 45% 10% fit-content(100%) 10%'
             gap={10}
             alignItems='center'>
             <Image
-                boxSize='100px'
+                boxSize='80px'
                 objectFit='cover'
                 borderRadius='20px'
                 src={item.image}
@@ -62,36 +64,66 @@ const CartItem = ({ item }) => {
             <Text fontSize='lg' fontWeight='700'>
                 ${item.price}
             </Text>
-            <HStack maxW='200px'>
-                <Button
-                    variant='none'
-                    colorScheme='teal'
-                    fontSize='30px'
-                    onClick={() => onClickChangeQtyHandler('dec')}
-                    isDisabled={qty <= 1 && true}>
-                    -
-                </Button>
-                <NumberInput min={1} max={item.countInStock} value={qty}>
-                    <NumberInputField
-                        p='0'
-                        textAlign='center'
-                        onChange={onChangeQtyHandler}
+            {!orderedItem ? (
+                <>
+                    <HStack maxW='200px'>
+                        <Button
+                            variant='none'
+                            colorScheme='teal'
+                            fontSize='30px'
+                            onClick={() => onClickChangeQtyHandler('dec')}
+                            isDisabled={qty <= 1}>
+                            -
+                        </Button>
+
+                        <NumberInput
+                            min={1}
+                            max={item.countInStock}
+                            value={qty}>
+                            <NumberInputField
+                                p='0'
+                                textAlign='center'
+                                onChange={onChangeQtyHandler}
+                            />
+                        </NumberInput>
+                        <Button
+                            variant='none'
+                            colorScheme='teal'
+                            fontSize='30px'
+                            onClick={() => onClickChangeQtyHandler('inc')}
+                            isDisabled={qty >= item.countInStock}>
+                            +
+                        </Button>
+                    </HStack>
+                    <IconButton
+                        w='30px'
+                        icon={<DeleteIcon />}
+                        variant='none'
+                        onClick={removeItemHandler}
                     />
-                </NumberInput>
-                <Button
-                    variant='none'
-                    colorScheme='teal'
-                    fontSize='30px'
-                    onClick={() => onClickChangeQtyHandler('inc')}
-                    isDisabled={qty >= item.countInStock && true}>
-                    +
-                </Button>
-            </HStack>
-            <IconButton
-                icon={<DeleteIcon />}
-                isRound
-                onClick={removeItemHandler}
-            />
+                </>
+            ) : (
+                <>
+                    <HStack maxW='200px'>
+                        <TiTimes size='25px' />
+                        <NumberInput
+                            min={1}
+                            max={item.countInStock}
+                            value={qty}
+                            isReadOnly>
+                            <NumberInputField
+                                border='none'
+                                p='0'
+                                textAlign='center'
+                            />
+                        </NumberInput>
+                        <TiEquals size='25px' />
+                    </HStack>
+                    <Text as='strong' fontSize='20px'>
+                        ${item.price * item.qty}
+                    </Text>
+                </>
+            )}
         </Grid>
     );
 };
