@@ -20,7 +20,7 @@ const Product = ({ product }) => {
             borderRadius='20px'
             boxShadow='2px 2px 10px #e9e8e6'>
             <Link to={`/product/${product._id}`}>
-                <Image src={product.image} alt={product.name} />
+                <Image src={product.image} />
             </Link>
             <Stat p='2'>
                 <Link to={`/product/${product._id}`}>

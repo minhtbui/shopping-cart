@@ -48,7 +48,7 @@ const CartItem = ({ item, orderedItem }) => {
     };
     return (
         <Grid
-            templateColumns='fit-content(50%) 45% 10% fit-content(100%) 10%'
+            templateColumns='80px 45% 10% fit-content(100%) 10%'
             gap={10}
             alignItems='center'>
             <Image
@@ -120,7 +120,7 @@ const CartItem = ({ item, orderedItem }) => {
                         <TiEquals size='25px' />
                     </HStack>
                     <Text as='strong' fontSize='20px'>
-                        ${item.price * item.qty}
+                        ${(item.price * item.qty).toFixed(2)}
                     </Text>
                 </>
             )}

@@ -16,7 +16,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 // Redux
 import { useSelector } from 'react-redux';
 
-const Cart = () => {
+const Payment = () => {
     const history = useHistory();
     const { cartItems } = useSelector((state) => state.cart);
 
@@ -27,7 +27,7 @@ const Cart = () => {
         <>
             <Grid templateColumns='.7fr .3fr' gap={10}>
                 <List spacing={5}>
-                    <Heading>Shopping Cart</Heading>
+                    <Heading>Payment</Heading>
 
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
@@ -68,7 +68,6 @@ const Cart = () => {
                         colorScheme='green'
                         variant='solid'
                         mt={3}
-                        isDisabled={cartItems.length === 0}
                         onClick={checkOutHandler}>
                         Checkout
                     </Button>
@@ -78,4 +77,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default Payment;

@@ -28,7 +28,7 @@ import toastConfig from '../utils/toastConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile } from '../actions/userAction';
 
-const UserProfile = ({ history }) => {
+const UserProfile = () => {
     const dispatch = useDispatch();
     const toast = useToast();
     const { register, handleSubmit } = useForm();
