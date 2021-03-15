@@ -9,7 +9,11 @@ export const paymentReducer = (state = { paymentAddres: {} }, action) => {
             return {
                 paymentAddress: action.payload.data,
             };
-
+        case PAYMENT_SAVE_METHOD:
+            return {
+                ...state,
+                paymentMethod: action.payload.data,
+            };
         default:
             return state;
     }

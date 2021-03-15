@@ -16,3 +16,12 @@ export const savePaymentAddress = (data) => (dispatch, getState) => {
         JSON.stringify(getState().payment.paymentAddress),
     );
 };
+
+export const savePaymentMethod = (data) => (dispatch) => {
+    dispatch({
+        type: PAYMENT_SAVE_METHOD,
+        payload: {
+            data,
+        },
+    });
+};

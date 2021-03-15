@@ -11,21 +11,35 @@ import {
     List,
     Text,
     useDisclosure,
+    useToast,
 } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
-
+import PaymentMethods from '../components/PaymentMethods';
+import AddressForm from '../components/AddressForm';
+import toastConfig from '../utils/toastConfig';
 // Redux
 import { useSelector } from 'react-redux';
-import AddressForm from '../components/AddressForm';
-import PaymentMethods from '../components/PaymentMethods';
 
 const Payment = () => {
     const history = useHistory();
+    const toast = useToast();
     const { cartItems } = useSelector((state) => state.cart);
-    const { paymentAddress } = useSelector((state) => state.payment);
+    const { paymentAddress, paymentMethod } = useSelector(
+        (state) => state.payment,
+    );
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const checkOutHandler = () => {
-        history.push('/login?redirect=payment-confirmation');
+        if (paymentAddress && paymentMethod) {
+            history.push('/login?redirect=payment-confirmation');
+        } else {
+            toast(
+                toastConfig(
+                    'Information is insufficient.',
+                    'Please fill information to continue',
+                ),
+            );
+        }
     };
     return (
         <>
@@ -70,7 +84,7 @@ const Payment = () => {
                     </Box>
                     <List spacing={5}>
                         <Heading as='h3' fontSize='2xl'>
-                            Ordered List
+                            Ordered Items
                         </Heading>
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => (
