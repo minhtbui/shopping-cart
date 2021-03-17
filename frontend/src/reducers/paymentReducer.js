@@ -7,6 +7,7 @@ export const paymentReducer = (state = { paymentAddres: {} }, action) => {
     switch (action.type) {
         case PAYMENT_SAVE_ADDRESS:
             return {
+                ...state,
                 paymentAddress: action.payload.data,
             };
         case PAYMENT_SAVE_METHOD:
