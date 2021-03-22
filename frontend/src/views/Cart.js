@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 import {
@@ -14,18 +14,49 @@ import {
 import { FaShoppingCart } from 'react-icons/fa';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { savePaymentPrices } from '../actions/paymentAction';
 
 const Cart = () => {
+    const dispatch = useDispatch();
     const history = useHistory();
     const { cartItems } = useSelector((state) => state.cart);
 
     const checkOutHandler = () => {
         history.push('/login?redirect=payment');
     };
+
+    useEffect(() => {
+        const itemPrices =
+            parseInt(
+                cartItems
+                    ?.reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2),
+            ) || 0;
+        const taxPrice =
+            parseInt(
+                cartItems
+                    ?.reduce(
+                        (acc, item) => acc + item.qty * (item.price * 0.1),
+                        0,
+                    )
+                    .toFixed(2),
+            ) || 0;
+        const shippingFee = itemPrices >= 500 ? 'Free' : 50;
+
+        const totalPrices =
+            shippingFee === 'Free'
+                ? itemPrices + taxPrice
+                : itemPrices + taxPrice + shippingFee;
+
+        dispatch(
+            savePaymentPrices(itemPrices, shippingFee, taxPrice, totalPrices),
+        );
+    }, [checkOutHandler]);
+
     return (
         <>
-            <Grid templateColumns='.7fr .3fr' gap={10}>
+            <Grid templateColumns='1fr' gap={10}>
                 <List spacing={5}>
                     <Heading>Shopping Cart</Heading>
 
@@ -40,39 +71,16 @@ const Cart = () => {
                         </Alert>
                     )}
                 </List>
-                <Box
-                    d='flex'
-                    flexDir='column'
-                    alignItems='center'
-                    bgColor='gray.100'
-                    boxShadow='lg'
-                    p='6'
-                    rounded='md'>
-                    <Heading as='h3' fontSize='2xl'>
-                        Subtotal (
-                        {cartItems?.reduce((acc, item) => acc + item.qty, 0) ||
-                            0}
-                        ) Items
-                    </Heading>
-                    <Text fontSize='3xl' mt='auto'>
-                        Total: $
-                        {cartItems
-                            ?.reduce(
-                                (acc, item) => acc + item.qty * item.price,
-                                0,
-                            )
-                            .toFixed(2) || 0}
-                    </Text>
-                    <Button
-                        leftIcon={<FaShoppingCart />}
-                        colorScheme='green'
-                        variant='solid'
-                        mt={3}
-                        isDisabled={cartItems.length === 0}
-                        onClick={checkOutHandler}>
-                        Checkout
-                    </Button>
-                </Box>
+                <Button
+                    leftIcon={<FaShoppingCart />}
+                    justifySelf='flex-end'
+                    colorScheme='green'
+                    variant='solid'
+                    mt={3}
+                    isDisabled={cartItems.length === 0}
+                    onClick={checkOutHandler}>
+                    Checkout
+                </Button>
             </Grid>
         </>
     );

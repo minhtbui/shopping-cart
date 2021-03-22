@@ -1,5 +1,6 @@
 const productRoutes = require('./productRoutes');
 const userRoutes = require('./userRoutes');
+const orderRoutes = require('./orderRoutes');
 const { NotFound, ErrorHandler } = require('./errorRoutes');
 
 const routes = (app) => {
@@ -8,6 +9,9 @@ const routes = (app) => {
 
     // Users
     app.use('/api/users', userRoutes);
+
+    // Orders
+    app.use('/api/orders', orderRoutes);
 
     app.get('/', (req, res) => {
         res.send('API is running');

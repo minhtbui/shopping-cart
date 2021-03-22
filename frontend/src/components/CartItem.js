@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Button,
     Grid,
@@ -13,8 +13,8 @@ import { DeleteIcon } from '@chakra-ui/icons';
 import { TiEquals, TiTimes } from 'react-icons/ti';
 
 // redux
-import { useDispatch } from 'react-redux';
 import { removeItem, updateItem } from '../actions/cartAction';
+import { useDispatch } from 'react-redux';
 
 const CartItem = ({ item, orderedItem }) => {
     const dispatch = useDispatch();

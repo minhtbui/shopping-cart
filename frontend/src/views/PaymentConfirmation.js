@@ -10,12 +10,9 @@ import {
     Heading,
     List,
     Text,
-    useDisclosure,
     useToast,
 } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
-import PaymentMethods from '../components/PaymentMethods';
-import AddressForm from '../components/AddressForm';
 import toastConfig from '../utils/toastConfig';
 // Redux
 import { useSelector } from 'react-redux';
@@ -24,10 +21,9 @@ const Payment = () => {
     const history = useHistory();
     const toast = useToast();
     const { cartItems } = useSelector((state) => state.cart);
-    const { paymentAddress, paymentMethod } = useSelector(
+    const { paymentAddress, paymentMethod, paymentPrices } = useSelector(
         (state) => state.payment,
     );
-    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const checkOutHandler = () => {
         if (paymentAddress && paymentMethod) {
@@ -102,6 +98,7 @@ const Payment = () => {
                     d='flex'
                     flexDir='column'
                     alignItems='center'
+                    alignSelf='flex-start'
                     bgColor='gray.100'
                     boxShadow='lg'
                     p='6'
@@ -112,22 +109,29 @@ const Payment = () => {
                             0}
                         ) Items
                     </Heading>
-                    <Text fontSize='3xl' mt='auto'>
-                        Total: $
-                        {cartItems
-                            ?.reduce(
-                                (acc, item) => acc + item.qty * item.price,
-                                0,
-                            )
-                            .toFixed(2) || 0}
+
+                    <Text py='5px'>
+                        Item Prices: ${paymentPrices.itemPrices}
                     </Text>
+                    <Text py='5px'>
+                        Shipping Fee:{' '}
+                        {paymentPrices.shippingFee === 'Free'
+                            ? paymentPrices.shippingFee
+                            : `$${paymentPrices.shippingFee}`}
+                    </Text>
+                    <Text py='5px'>Tax (10%): ${paymentPrices.taxPrice}</Text>
+
+                    <Text fontSize='3xl' mt='auto'>
+                        Total: ${paymentPrices.totalPrices}
+                    </Text>
+
                     <Button
                         leftIcon={<FaShoppingCart />}
                         colorScheme='green'
                         variant='solid'
                         mt={3}
                         onClick={checkOutHandler}>
-                        Process to payment
+                        Order
                     </Button>
                 </Box>
             </Grid>
