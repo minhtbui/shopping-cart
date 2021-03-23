@@ -1,14 +1,14 @@
 const Order = require('../models/Order');
 const asyncHandler = require('express-async-handler');
 
-//! [GET] /api/order/
+//! [GET] /api/orders/
 const getOrders = asyncHandler(async (req, res) => {
     const order = await Order.find({});
 
     res.json(order);
 });
 
-//! [GET] /api/order/:id
+//! [GET] /api/orders/:id
 const getOrderById = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
 
@@ -20,7 +20,7 @@ const getOrderById = asyncHandler(async (req, res) => {
     }
 });
 
-//! [POST] /api/order/
+//! [POST] /api/orders/
 const createOrder = asyncHandler(async (req, res) => {
     const {
         orderItems,
