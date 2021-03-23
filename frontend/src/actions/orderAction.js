@@ -3,6 +3,7 @@ import {
     ORDER_CREATE_LOADING,
     ORDER_CREATE_SUCCESS,
     ORDER_CREATE_FAIL,
+    ORDER_CREATE_INIT,
 } from '../constants/orderConstant';
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -35,4 +36,8 @@ export const createOrder = (order) => async (dispatch, getState) => {
                     : error.message,
         });
     }
+};
+
+export const renewOrder = () => (dispatch) => {
+    dispatch({ type: ORDER_CREATE_INIT });
 };
