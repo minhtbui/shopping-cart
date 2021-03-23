@@ -131,7 +131,7 @@ const Payment = () => {
                     </Heading>
 
                     <Text py='5px'>
-                        Item Prices: ${paymentPrices.itemPrices}
+                        Item Prices: ${paymentPrices.itemsPrice}
                     </Text>
                     <Text py='5px'>
                         Shipping Fee:{' '}
@@ -142,7 +142,7 @@ const Payment = () => {
                     <Text py='5px'>Tax (10%): ${paymentPrices.taxPrice}</Text>
 
                     <Text fontSize='3xl' mt='auto'>
-                        Total: ${paymentPrices.totalPrices}
+                        Total: ${paymentPrices.totalPrice}
                     </Text>
 
                     <Button

@@ -5,18 +5,18 @@ import {
 } from '../constants/paymentConstant';
 
 export const savePaymentPrices = (
-    itemPrices,
+    itemsPrice,
     shippingFee,
     taxPrice,
-    totalPrices,
+    totalPrice,
 ) => (dispatch, getState) => {
     dispatch({
         type: PAYMENT_SAVE_PRICES,
         payload: {
-            itemPrices,
+            itemsPrice,
             shippingFee,
             taxPrice,
-            totalPrices,
+            totalPrice,
         },
     });
 

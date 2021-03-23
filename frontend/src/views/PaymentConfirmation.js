@@ -1,5 +1,4 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import CartItem from '../components/CartItem';
 import {
     Alert,
@@ -15,25 +14,50 @@ import {
 import { FaShoppingCart } from 'react-icons/fa';
 import toastConfig from '../utils/toastConfig';
 // Redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../actions/orderAction';
 
-const Payment = () => {
-    const history = useHistory();
+const PaymentConfirmation = ({ history }) => {
+    const dispatch = useDispatch();
     const toast = useToast();
     const { cartItems } = useSelector((state) => state.cart);
     const { paymentAddress, paymentMethod, paymentPrices } = useSelector(
         (state) => state.payment,
     );
+    const { createdOrder, success, error } = useSelector(
+        (state) => state.orderCreated,
+    );
 
-    const checkOutHandler = () => {
-        if (paymentAddress && paymentMethod) {
-            history.push('/login?redirect=payment-confirmation');
-        } else {
+    useEffect(() => {
+        if (success) {
+            history.push(`/orders/${createdOrder._id}`);
             toast(
                 toastConfig(
-                    'Information is insufficient.',
-                    'Please fill information to continue',
+                    'Successful Order!!!',
+                    'Thank you for shopping our store :)',
                 ),
+            );
+        } else if (error) {
+            toast(toastConfig(createdOrder));
+        }
+    }, [history, success, createdOrder, error, toast]);
+
+    const orderHandler = () => {
+        if (cartItems && paymentAddress && paymentMethod) {
+            dispatch(
+                createOrder({
+                    orderItems: cartItems,
+                    shippingAddress: paymentAddress,
+                    paymentMethod,
+                    itemsPrice: paymentPrices.itemsPrice,
+                    taxPrice: paymentPrices.taxPrice,
+                    shippingPrice: paymentPrices.shippingPrice,
+                    totalPrice: paymentPrices.totalPrice,
+                }),
+            );
+        } else {
+            toast(
+                toastConfig('Order cannot be processed', 'Please try again!'),
             );
         }
     };
@@ -130,7 +154,7 @@ const Payment = () => {
                         colorScheme='green'
                         variant='solid'
                         mt={3}
-                        onClick={checkOutHandler}>
+                        onClick={orderHandler}>
                         Order
                     </Button>
                 </Box>
@@ -139,4 +163,4 @@ const Payment = () => {
     );
 };
 
-export default Payment;
+export default PaymentConfirmation;

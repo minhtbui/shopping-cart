@@ -4,12 +4,10 @@ import CartItem from '../components/CartItem';
 import {
     Alert,
     AlertIcon,
-    Box,
     Button,
     Grid,
     Heading,
     List,
-    Text,
 } from '@chakra-ui/react';
 import { FaShoppingCart } from 'react-icons/fa';
 
