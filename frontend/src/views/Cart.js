@@ -25,7 +25,7 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        const itemPrice =
+        const itemsPrice =
             parseFloat(
                 cartItems
                     ?.reduce((acc, item) => acc + item.qty * item.price, 0)
@@ -40,12 +40,12 @@ const Cart = () => {
                     )
                     .toFixed(2),
             ) || 0;
-        const shippingPrice = itemPrice >= 500 ? 0 : 50;
+        const shippingPrice = itemsPrice >= 500 ? 0 : 50;
 
-        const totalPrice = itemPrice + taxPrice + shippingPrice;
+        const totalPrice = itemsPrice + taxPrice + shippingPrice;
 
         dispatch(
-            savePaymentPrices(itemPrice, shippingPrice, taxPrice, totalPrice),
+            savePaymentPrices(itemsPrice, shippingPrice, taxPrice, totalPrice),
         );
     }, [checkOutHandler]);
 
