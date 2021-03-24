@@ -70,8 +70,9 @@ const Header = () => {
                             <Link as={NavLink} to='/profile'>
                                 <MenuItem>Profile</MenuItem>
                             </Link>
-
-                            <MenuItem>Order</MenuItem>
+                            {/* <Link as={NavLink} to='/orders'>
+                                <MenuItem>Orders</MenuItem>
+                            </Link> */}
                             <MenuDivider />
                             <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                         </MenuList>

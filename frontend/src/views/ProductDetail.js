@@ -22,7 +22,7 @@ import { MdAddShoppingCart } from 'react-icons/md';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { detailProduct } from '../actions/productAction';
+import { getProductDetail } from '../actions/productAction';
 import { addItem } from '../actions/cartAction';
 
 const ProductDetail = ({ match }) => {
@@ -46,7 +46,7 @@ const ProductDetail = ({ match }) => {
     const qty = getInputProps();
 
     useEffect(() => {
-        dispatch(detailProduct(match.params.id));
+        dispatch(getProductDetail(match.params.id));
     }, [dispatch, match]);
 
     const addCartHandler = (e) => {

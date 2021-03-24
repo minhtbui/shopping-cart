@@ -6,7 +6,7 @@ import {
 
 export const savePaymentPrices = (
     itemsPrice,
-    shippingFee,
+    shippingPrice,
     taxPrice,
     totalPrice,
 ) => (dispatch, getState) => {
@@ -14,7 +14,7 @@ export const savePaymentPrices = (
         type: PAYMENT_SAVE_PRICES,
         payload: {
             itemsPrice,
-            shippingFee,
+            shippingPrice,
             taxPrice,
             totalPrice,
         },

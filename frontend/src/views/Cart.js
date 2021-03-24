@@ -25,14 +25,14 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        const itemPrices =
-            parseInt(
+        const itemPrice =
+            parseFloat(
                 cartItems
                     ?.reduce((acc, item) => acc + item.qty * item.price, 0)
                     .toFixed(2),
             ) || 0;
         const taxPrice =
-            parseInt(
+            parseFloat(
                 cartItems
                     ?.reduce(
                         (acc, item) => acc + item.qty * (item.price * 0.1),
@@ -40,15 +40,12 @@ const Cart = () => {
                     )
                     .toFixed(2),
             ) || 0;
-        const shippingFee = itemPrices >= 500 ? 'Free' : 50;
+        const shippingPrice = itemPrice >= 500 ? 0 : 50;
 
-        const totalPrices =
-            shippingFee === 'Free'
-                ? itemPrices + taxPrice
-                : itemPrices + taxPrice + shippingFee;
+        const totalPrice = itemPrice + taxPrice + shippingPrice;
 
         dispatch(
-            savePaymentPrices(itemPrices, shippingFee, taxPrice, totalPrices),
+            savePaymentPrices(itemPrice, shippingPrice, taxPrice, totalPrice),
         );
     }, [checkOutHandler]);
 

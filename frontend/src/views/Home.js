@@ -3,7 +3,7 @@ import Product from '../components/Product';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productAction';
+import { getProductList } from '../actions/productAction';
 
 // chakra UI
 import { Alert, AlertIcon, Heading, SimpleGrid } from '@chakra-ui/react';
@@ -16,7 +16,7 @@ const Home = () => {
     );
 
     useEffect(() => {
-        dispatch(listProducts());
+        dispatch(getProductList());
     }, [dispatch]);
 
     return (

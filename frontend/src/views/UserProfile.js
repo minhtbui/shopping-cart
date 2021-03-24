@@ -19,7 +19,7 @@ import {
     useToast,
     VStack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router';
 import toastConfig from '../utils/toastConfig';
@@ -27,6 +27,7 @@ import toastConfig from '../utils/toastConfig';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile } from '../actions/userAction';
+import { getOrderList } from '../actions/orderAction';
 
 const UserProfile = () => {
     const dispatch = useDispatch();
@@ -39,6 +40,14 @@ const UserProfile = () => {
     });
 
     const { loading, error, userInfo } = useSelector((state) => state.user);
+    // const { loading: ordersLoading, error: ordersError, orders } = useSelector(
+    //     (state) => state.orderList,
+    // );
+
+    // useEffect(() => {
+    //     dispatch(getOrderList());
+    //     console.log(orders);
+    // }, [dispatch]);
 
     const formOnSubmitHandler = ({ name, email, password, cfPassword }) => {
         if (password !== cfPassword) {

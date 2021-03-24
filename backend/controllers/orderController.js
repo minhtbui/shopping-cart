@@ -10,7 +10,10 @@ const getOrders = asyncHandler(async (req, res) => {
 
 //! [GET] /api/orders/:id
 const getOrderById = asyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id);
+    const order = await (await Order.findById(req.params.id)).populate(
+        'user',
+        'name email',
+    );
 
     if (order) {
         res.json(order);

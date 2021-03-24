@@ -139,9 +139,9 @@ const PaymentConfirmation = ({ history }) => {
                     </Text>
                     <Text py='5px'>
                         Shipping Fee:{' '}
-                        {paymentPrices.shippingFee === 'Free'
-                            ? paymentPrices.shippingFee
-                            : `$${paymentPrices.shippingFee}`}
+                        {paymentPrices.shippingPrice === 'Free'
+                            ? paymentPrices.shippingPrice
+                            : `$${paymentPrices.shippingPrice}`}
                     </Text>
                     <Text py='5px'>Tax (10%): ${paymentPrices.taxPrice}</Text>
 

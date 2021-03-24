@@ -9,7 +9,7 @@ const protect = require('../middlewares/authMiddleware');
 
 /*
  * Fetch orders
- * [GET] api/orders/
+ * [GET, POST] api/orders/
  * Public
  */
 router.route('/').post(protect, createOrder);
@@ -19,6 +19,6 @@ router.route('/').post(protect, createOrder);
  * [GET] api/orders/:id
  * Public
  */
-router.route('/:id').get(getOrderById);
+router.route('/:id').get(protect, getOrderById);
 
 module.exports = router;
