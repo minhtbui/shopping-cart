@@ -13,6 +13,11 @@ const routes = (app) => {
     // Orders
     app.use('/api/orders', orderRoutes);
 
+    //get paypal client id
+    app.get('/api/config/paypal', (req, res) =>
+        res.send(process.env.PAYPAL_CLIENT_ID),
+    );
+
     app.get('/', (req, res) => {
         res.send('API is running');
     });

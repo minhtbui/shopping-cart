@@ -19,9 +19,11 @@ import {
     useToast,
     VStack,
 } from '@chakra-ui/react';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import toastConfig from '../utils/toastConfig';
 
 // redux
@@ -40,14 +42,15 @@ const UserProfile = () => {
     });
 
     const { loading, error, userInfo } = useSelector((state) => state.user);
-    // const { loading: ordersLoading, error: ordersError, orders } = useSelector(
-    //     (state) => state.orderList,
-    // );
+    const { error: ordersError, orders } = useSelector(
+        (state) => state.orderList,
+    );
 
-    // useEffect(() => {
-    //     dispatch(getOrderList());
-    //     console.log(orders);
-    // }, [dispatch]);
+    useEffect(() => {
+        if (userInfo) {
+            dispatch(getOrderList());
+        }
+    }, [dispatch, userInfo]);
 
     const formOnSubmitHandler = ({ name, email, password, cfPassword }) => {
         if (password !== cfPassword) {
@@ -67,7 +70,10 @@ const UserProfile = () => {
         }
     };
     return userInfo ? (
-        <Grid templateColumns='.3fr fit-content(100%)  .7fr' gap={10}>
+        <Grid
+            templateColumns='.3fr fit-content(100%)  .7fr'
+            gap={5}
+            justifyContent='space-around'>
             <VStack
                 as='form'
                 p='10px'
@@ -157,18 +163,50 @@ const UserProfile = () => {
                     <Thead>
                         <Tr>
                             <Th>No. Order</Th>
-                            <Th>Items</Th>
-                            <Th isNumeric>Date/ Time</Th>
-                            <Th>Price</Th>
+                            <Th>Date</Th>
+                            <Th>Paid</Th>
+                            <Th>Delivered</Th>
+                            <Th isNumeric>Total Price</Th>
+                            <Th></Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <Tr>
-                            <Td>#1</Td>
-                            <Td>millimetres (mm)</Td>
-                            <Td isNumeric>20/03/21</Td>
-                            <Td>$300</Td>
-                        </Tr>
+                        {error ? (
+                            <Alert status='error'>
+                                <AlertIcon />
+                                {error}
+                            </Alert>
+                        ) : (
+                            orders?.map((order) => (
+                                <Tr>
+                                    <Td>#{order._id}</Td>
+                                    <Td>{order.updatedAt}</Td>
+                                    <Td>
+                                        {order.isPaid ? (
+                                            <CheckIcon color='green' />
+                                        ) : (
+                                            <CloseIcon color='red.300' />
+                                        )}
+                                    </Td>
+                                    <Td>
+                                        {order.isDeliveried ? (
+                                            <CheckIcon color='green' />
+                                        ) : (
+                                            <CloseIcon color='red.300' />
+                                        )}
+                                    </Td>
+                                    <Td isNumeric>${order.totalPrice}</Td>
+                                    <Td>
+                                        <Button
+                                            as={Link}
+                                            to={`/orders/${order._id}`}
+                                            size='sm'>
+                                            Detail
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            ))
+                        )}
                     </Tbody>
                 </Table>
             </VStack>

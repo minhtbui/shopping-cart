@@ -15,7 +15,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import toastConfig from '../utils/toastConfig';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrder } from '../actions/orderAction';
+import { createOrder, resetCreatedOrder } from '../actions/orderAction';
 
 const PaymentConfirmation = ({ history }) => {
     const dispatch = useDispatch();
@@ -37,13 +37,14 @@ const PaymentConfirmation = ({ history }) => {
                     'Thank you for shopping our store :)',
                 ),
             );
+            dispatch(resetCreatedOrder());
         } else if (error) {
-            toast(toastConfig(createdOrder));
+            toast(toastConfig(error));
         }
     }, [history, success, createdOrder, error, toast]);
 
     const orderHandler = () => {
-        if (cartItems && paymentAddress && paymentMethod) {
+        if (cartItems && paymentAddress && paymentMethod && paymentPrices) {
             dispatch(
                 createOrder({
                     orderItems: cartItems,

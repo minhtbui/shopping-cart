@@ -2,19 +2,35 @@ import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { Image } from '@chakra-ui/image';
 import { Box, Flex, Heading, Spacer } from '@chakra-ui/layout';
 import { Table, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/table';
-import React, { useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderDetail } from '../actions/orderAction';
 import Loader from '../components/Loader';
 
 const OrderDetail = ({ match }) => {
+    const [sdkReady, setSdkReady] = useState(false);
     const dispatch = useDispatch();
     const { loading, order, error } = useSelector((state) => state.orderDetail);
+    const {
+        loading: loadingPayment,
+        success: successPayment,
+        error: errorPayment,
+    } = useSelector((state) => state.orderPayment);
 
     useEffect(() => {
+        const addPayPalScript = async () => {
+            const { data: clientId } = await axios.get('/api/config/paypal');
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+            script.async = true;
+            script.onload = () => setSdkReady;
+            document.body.appendChild(script.body);
+        };
         dispatch(getOrderDetail(match.params.id));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
@@ -32,10 +48,18 @@ const OrderDetail = ({ match }) => {
                             Order #{order._id}
                         </Heading>
                         <Box flex='0.3'>
-                            <Heading as='h3'>Shipping Address</Heading>
+                            <Heading as='h3'>Shipping Information</Heading>
 
                             <Table variant='unstyled'>
                                 <Tbody>
+                                    <Tr>
+                                        <Th>Name</Th>
+                                        <Td>{order.user.name}</Td>
+                                    </Tr>{' '}
+                                    <Tr>
+                                        <Th>Street</Th>
+                                        <Td>{order.user.email}</Td>
+                                    </Tr>
                                     <Tr>
                                         <Th>Street</Th>
                                         <Td>{order.shippingAddress.street}</Td>
@@ -53,6 +77,21 @@ const OrderDetail = ({ match }) => {
                                     <Tr>
                                         <Th>Country</Th>
                                         <Td>{order.shippingAddress.country}</Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Th>Delivery Status</Th>
+                                        <Td>
+                                            {order.isDelivered ? (
+                                                <Alert status='success'>
+                                                    <AlertIcon />
+                                                </Alert>
+                                            ) : (
+                                                <Alert status='error'>
+                                                    <AlertIcon />
+                                                    Not Delivered.
+                                                </Alert>
+                                            )}
+                                        </Td>
                                     </Tr>
                                 </Tbody>
                             </Table>
@@ -72,7 +111,7 @@ const OrderDetail = ({ match }) => {
                                 </Thead>
                                 <Tbody>
                                     {order.orderItems.map((item) => (
-                                        <Tr>
+                                        <Tr key={item._id}>
                                             <Td>
                                                 <Image
                                                     d='inline-block'
@@ -95,15 +134,10 @@ const OrderDetail = ({ match }) => {
                                 <Tfoot>
                                     <Tr>
                                         <Th colSpan='2' isNumeric>
-                                            Sum
+                                            Total
                                         </Th>
                                         <Td colSpan='2' isNumeric>
-                                            $
-                                            {order.orderItems.reduce(
-                                                (acc, { price, qty }) =>
-                                                    (acc += price * qty),
-                                                0,
-                                            )}
+                                            ${order.itemsPrice}
                                         </Td>
                                     </Tr>
                                     <Tr>
@@ -128,6 +162,29 @@ const OrderDetail = ({ match }) => {
                                         </Th>
                                         <Td colSpan='2' isNumeric>
                                             {order.paymentMethod}
+                                        </Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Th colSpan='2' isNumeric>
+                                            Payment Status
+                                        </Th>
+                                        <Td colSpan='2'>
+                                            {order.isPaid ? (
+                                                <Alert
+                                                    status='success'
+                                                    w='fit-content'
+                                                    ml='auto'>
+                                                    <AlertIcon />
+                                                </Alert>
+                                            ) : (
+                                                <Alert
+                                                    status='error'
+                                                    w='fit-content'
+                                                    ml='auto'>
+                                                    <AlertIcon />
+                                                    Not Paid.
+                                                </Alert>
+                                            )}
                                         </Td>
                                     </Tr>
                                     <Tr>
